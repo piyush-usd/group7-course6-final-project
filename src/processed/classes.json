@@ -1,0 +1,64 @@
+{
+    "classes": [
+        {
+            "id": 1,
+            "category": "blouse"
+        },
+        {
+            "id": 2,
+            "category": "dhoti_pants"
+        },
+        {
+            "id": 3,
+            "category": "dupattas"
+        },
+        {
+            "id": 4,
+            "category": "gowns"
+        },
+        {
+            "id": 5,
+            "category": "kurta_men"
+        },
+        {
+            "id": 6,
+            "category": "leggings_and_salwars"
+        },
+        {
+            "id": 7,
+            "category": "lehenga"
+        },
+        {
+            "id": 8,
+            "category": "mojaris_men"
+        },
+        {
+            "id": 9,
+            "category": "mojaris_women"
+        },
+        {
+            "id": 10,
+            "category": "nehru_jackets"
+        },
+        {
+            "id": 11,
+            "category": "palazzos"
+        },
+        {
+            "id": 12,
+            "category": "petticoats"
+        },
+        {
+            "id": 13,
+            "category": "saree"
+        },
+        {
+            "id": 14,
+            "category": "sherwanis"
+        },
+        {
+            "id": 15,
+            "category": "women_kurta"
+        }
+    ]
+}
