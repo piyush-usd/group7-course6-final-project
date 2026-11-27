@@ -18,7 +18,7 @@ SPLIT_PATH = DATA_PATH / "splits"
 
 SPLIT_PATH.mkdir(parents=True, exist_ok=True)
 
-# 1. Generate classes.json first
+# Generate classes.json first
 generate_classes_json(
     input_file=DATA_PATH / "train_data.json",
     output_file=DATA_PATH/"classes.json"
