@@ -6,11 +6,9 @@ from filter_classes import filter_classes
 from validate_and_download_images import process_split
 from create_csvs import build_split_csv
 from create_classes import generate_classes_json
-
-DATA_PATH = Path("../../data")
-SPLIT_PATH = DATA_PATH / "splits"
-
-SPLIT_PATH.mkdir(parents=True, exist_ok=True)
+from remove_duplicates import deduplicate_train_split
+from resize_dataset import build_resized_dataset
+from eda_analysis import run_eda
 
 
 DATA_PATH = Path("../../data")
@@ -43,10 +41,10 @@ print("Train records>>>>>>****After Filter*******>>>>>>>>>>>>>>:", len(train_dat
 print("Validation records>>>>>>>******After Filter*****>>>>>>>>>>>>:", len(val_data))
 print("Test records:>>>>>>>>>******After Filter*****>>>>>>>>>>", len(test_data))
 
-# Validate images
-train_data = process_split(train_data, "train",100)
-val_data = process_split(val_data, "val",50)
-test_data = process_split(test_data, "test",80)
+# Validate images and download
+train_data = process_split(train_data, "train",50)
+val_data = process_split(val_data, "val",20)
+test_data = process_split(test_data, "test",30)
 
 print("Train records>>>>>>***After Validate and download Image***>>>>=========:", len(train_data))
 print("Validation records>>>>>>>****After Validate and download Image***>>>>>>>>=======:", len(val_data))
@@ -58,3 +56,11 @@ build_split_csv(val_data, "val")
 build_split_csv(test_data, "test")
 
 print("\nAll dataset splits created successfully!")
+
+
+deduplicate_train_split(threshold=4, chunk_size=512)
+
+build_resized_dataset(max_side=256)
+print("\nAll Image resized dataset created successfully!")
+
+run_eda()

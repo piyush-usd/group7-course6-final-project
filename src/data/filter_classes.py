@@ -1,7 +1,7 @@
 
 import json
 
-DATA_PATH = "../processed/"
+DATA_PATH = "../../data/"
 
 include_classes = {
     "Saree",
