@@ -9,7 +9,7 @@ from create_classes import generate_classes_json
 from remove_duplicates import deduplicate_train_split
 from resize_dataset import build_resized_dataset
 from eda_analysis import run_eda
-
+from dataset_transform import get_dataloader, get_class_weights, generate_contour_comparison
 
 DATA_PATH = Path("../../data")
 SPLIT_PATH = DATA_PATH / "splits"
@@ -64,3 +64,16 @@ build_resized_dataset(max_side=256)
 print("\nAll Image resized dataset created successfully!")
 
 run_eda()
+
+print("\nEDA created successfully!")
+
+# 1. Generate before/after figure (Step 3.7 deliverable)
+generate_contour_comparison(n_samples=5)
+
+# 2. Get class weights for CrossEntropyLoss (Step 3.5)
+weights = get_class_weights()
+
+# 3. Load a batch with contour cropping enabled (Step 3.6)
+train_loader = get_dataloader("train", batch_size=64, train=True, subset=50, crop=True, num_workers=0 )
+images, labels = next(iter(train_loader))
+print("Batch shape:", images.shape, "| Labels shape:", labels.shape)

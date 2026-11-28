@@ -9,13 +9,10 @@ from pathlib import Path
 from PIL import Image, ImageOps
 from torch.utils.data import Dataset, DataLoader
 
-
 # --------------------------------------------------
 # 1. Project Paths & Constants
 # --------------------------------------------------
-
-PROJECT_ROOT = Path(__file__).resolve().parents
-DATA_DIR = PROJECT_ROOT / "data"
+DATA_DIR = Path("../../data")
 SPLIT_DIR = DATA_DIR / "splits"
 
 MEAN, STD = (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)  # ImageNet
@@ -96,10 +93,10 @@ def contour_crop_pil(pil_img, margin=0.05, min_area_frac=0.2):
 
 
 def generate_contour_comparison(
-    csv_path=SPLIT_DIR / "train.csv",
-    out_path=PROJECT_ROOT / "reports" / "eda" / "contour_crop_before_after.png",
-    n_samples=5,
-    root_dir=PROJECT_ROOT
+        csv_path=SPLIT_DIR / "train.csv",
+        out_path=DATA_DIR / "reports" / "eda" / "contour_crop_before_after.png",
+        n_samples=5,
+        root_dir=DATA_DIR
 ):
     """Generates the before/after contour crop deliverable figure for the report."""
     out_file = Path(out_path)
@@ -135,7 +132,7 @@ def generate_contour_comparison(
 # --------------------------------------------------
 
 class GarmentDataset(Dataset):
-    def __init__(self, csv_path, transform, subset=None, crop_fn=None, root_dir=PROJECT_ROOT):
+    def __init__(self, csv_path, transform, subset=None, crop_fn=None, root_dir=DATA_DIR):
         df = pd.read_csv(csv_path)
         if subset:  # images per class, for fast early development
             df = df.groupby("label_idx", group_keys=False).head(subset)
@@ -163,14 +160,14 @@ class GarmentDataset(Dataset):
 
 
 def get_dataloader(
-    split,
-    batch_size=64,
-    train=False,
-    subset=None,
-    crop=False,
-    num_workers=4,
-    split_dir=SPLIT_DIR,
-    root_dir=PROJECT_ROOT
+        split,
+        batch_size=64,
+        train=False,
+        subset=None,
+        crop=False,
+        num_workers=4,
+        split_dir=SPLIT_DIR,
+        root_dir=DATA_DIR
 ):
     csv_path = Path(split_dir) / f"{split}.csv"
     transform = train_tf if train else eval_tf
